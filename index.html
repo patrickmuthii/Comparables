@@ -13,11 +13,24 @@
     <link rel="manifest" href="/manifest.json" />
     <link rel="icon" href="/icon-192.png" />
     <meta name="theme-color" content="#2563eb" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Property Comparables">
+    <link rel="apple-touch-icon" href="/icon-192.png">
+
 
 
         <!-- Google tag (gtag.js) -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZPZEL0JMCN"></script>
         <script>
+            if ('serviceWorker' in navigator) {
+                    window.addEventListener('load', () => {
+                        navigator.serviceWorker.register('/sw.js')
+                            .then(reg => console.log('Service Worker registered.', reg))
+                            .catch(err => console.log('Service Worker registration failed:', err));
+                    });
+                }
+
             window.dataLayer = window.dataLayer || [];
             function gtag() { dataLayer.push(arguments); }
             gtag('js', new Date());
