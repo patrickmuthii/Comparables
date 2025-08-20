@@ -3,134 +3,74 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="google-site-verification" content="PWGVl4GLDktCbRNYhUv7b2orKAvpQVjSLapTYRYqabk" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Property Comparables</title>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script defer src="script.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="manifest" href="/manifest.json" />
-    <link rel="icon" href="/icon-192.png" />
-    <meta name="theme-color" content="#2563eb" />
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Property Comparables">
-    <link rel="apple-touch-icon" href="/icon-192.png">
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZPZEL0JMCN"></script>
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(reg => console.log('Service Worker registered.', reg))
-                    .catch(err => console.log('Service Worker registration failed:', err));
-            });
-        }
-
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-ZPZEL0JMCN');
-    </script>
-
-    <style>
-        @keyframes rgbSparkle {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        .animate-text-glow {
-            background: linear-gradient(270deg, #ff0000, #00ff00, #0000ff, #ff0000);
-            background-size: 600% 600%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: rgbSparkle 5s linear infinite;
-        }
-    </style>
 </head>
 
-<body class="bg-gray-100 text-gray-800">
-    <!-- RGB Sparkling Banner -->
-    <div class="w-full text-center py-4 bg-black fixed z-50">
-        <h1 class="text-3xl font-bold animate-text-glow">Properties Comparable Data</h1>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZPZEL0JMCN"></script>
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js')
+                .then(reg => console.log('Service Worker registered.', reg))
+                .catch(err => console.log('Service Worker registration failed:', err));
+        });
+    }
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-ZPZEL0JMCN');
+</script>
+
+<style>
+    @keyframes rgbSparkle {
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    .animate-text-glow {
+        background: linear-gradient(270deg, #ff0000, #00ff00, #0000ff, #ff0000);
+        background-size: 600% 600%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: rgbSparkle 5s linear infinite;
+    }
+</style>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen px-4">
+
+    <div class="max-w-2xl w-full text-center bg-white p-8 rounded-2xl shadow-2xl">
+        <h5 class="text-2xl animate-text-glow text-gray-800 mb-4">Property Comparables</h5>
+
+        <!-- Welcome Image -->
+        <img src="ads/ad2.jpg" alt="Welcome Image" class="w-full h-64 object-cover rounded-xl mb-8">
+
+        <!-- Headline -->
+        <h1 class="text-3xl font-bold text-gray-800">Welcome to Pentan Insights</h1>
+        <p class="text-gray-600 mt-3 text-xl font-bold">
+            Secure access to real-time valuation comparables across Kenya
+        </p>
+
+        <!-- Login Button -->
+        <a href="main.html"
+            class="mt-8 inline-block bg-blue-600 text-white text-lg px-8 py-3 rounded-xl hover:bg-blue-700 transition duration-300">
+            Login to Get Started
+        </a>
+
     </div>
 
-    <div class="max-w-6xl mx-auto p-4 pt-24">
-        <!-- Header -->
-        <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
-            <button id="toggleFormBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow">
-                + Add Property
-            </button>
-            <input type="text" id="search-input" placeholder="Search by title or location..."
-                class="p-2 border rounded w-full md:w-64" />
-        </div>
-
-        <!-- Form -->
-        <form id="property-form" class="hidden bg-white p-6 rounded-lg shadow mb-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input name="title_no" placeholder="Title Number (e.g. Nairobi/Nairobi 342)" class="border p-2 rounded"
-                    required />
-                <input name="size_ha" placeholder="Size in Ha" type="number" step="any" class="border p-2 rounded"
-                    required />
-                <input name="location" placeholder="Location" class="border p-2 rounded" required />
-                <input name="gps" placeholder="GPS Coordinates" class="border p-2 rounded" />
-                <input name="value" placeholder="Value (KES)" type="number" class="border p-2 rounded" />
-                <input name="valuation_date" type="date" class="border p-2 rounded" />
-                <input name="relation" placeholder="Relation Note"
-                    value="Comparable is inferior compared to the subject property in terms of location though compares well in size. The figures will be adjusted upwards to the reflect difference in superiority."
-                    readonly class="border p-2 rounded bg-gray-100 text-gray-500" />
-            </div>
-            <button type="submit" class="mt-4 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded shadow">Save
-                Property</button>
-        </form>
-
-        <!-- Results -->
-        <div id="results" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
-    </div>
-
-    <footer class="text-center text-gray-600 text-sm py-4">
-        Made with ❤️ by <a href="https://github.com/patrickmuthii" class="text-blue-600 hover:underline"
-            target="_blank">@Patrick Muthii</a>
-    </footer>
-
-    <div class="fixed top-20 right-0 w-72 bg-white p-2 z-40">
-        <header class="animate-text-glow text-sm font-semibold mb-2">Sponsored by Pentan Realtors</header>
-
-        <h1 class="text-xl font-bold animate-text-glow mb-4">FIND, LIST, BUY AND SELL YOUR PROPERTY WITH VERIFIED ESTATE
-            AGENTS</h1>
-
-        <div class="space-y-6">
-            <!-- Ad 1 -->
-            <div class="rounded-xl overflow-hidden border-2 border-white shadow-lg">
-                <img src="ads/ad1.jpg" alt="Ad 1" class="w-full h-40 object-cover">
-                <div class="p-3 text-center bg-white">
-                    <p class="text-sm font-semibold text-gray-800">Get your property seen by potential buyer</p>
-                </div>
-            </div>
-
-            <!-- Ad 2 -->
-            <div class="rounded-xl overflow-hidden border-2 border-white shadow-lg">
-                <header class="animate-text-glow text-xl font-bold">LOOKING FOR PROPERTY TO BUY?, ESTATE AGENT?,
-                    PROPERTY VALUATION? OR PROPERTY MANAGEMENT?, PENTAN GOT YOU COVERED</header>
-                <img src="ads/ad2.jpg" alt="Ad 2" class="w-full h-40 object-cover">
-                <div class="p-3 text-center bg-white">
-                    <p class="text-sm font-semibold text-gray-800">Need Help in any real estate service? Pentan got you
-                        covered.</p>
-                </div>
-            </div>
-        </div>
-    </div>
 </body>
 
 </html>
